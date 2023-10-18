@@ -21,7 +21,7 @@ const MyCart = () => {
       {
         data.map( singleData => <tr key={singleData._id} className="bg-base-200">
         <th>{singleData._id}</th>
-        <td>Cy Ganderton</td>
+        <td>{singleData.name}</td>
         <td>Quality Control Specialist</td>
         <td>Blue</td>
       </tr>
