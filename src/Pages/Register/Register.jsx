@@ -1,16 +1,19 @@
 import { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Components/AuthProvider/AuthProvider";
 import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const Register = () => {
-    const {createUser} = useContext(AuthContext)
+    const navigate = useNavigate()
+    const {createUser, UserUpdate} = useContext(AuthContext)
     const handleCreateUser = e => {
         e.preventDefault()
         const name = e.target.name.value;
         const email = e.target.email.value;
         const password = e.target.password.value;
-        console.log(name, password, email)
+        const photo = e.target.photo.value
+        console.log(name, password, email, photo)
         const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
 
         if (password.length < 6) {
@@ -29,6 +32,23 @@ const Register = () => {
         createUser(email, password)
         .then(result => {
             console.log(result.user)
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: 'Registration successful!',
+                confirmButtonText: 'OK'
+              });
+              
+            navigate('/')
+            UserUpdate(name, photo)
+            .then(result => {
+                console.log(result.user);
+                
+            })
+            .then(error => {
+                console.log(error.message);
+            })
+
         })
         .catch(error => {
             console.log(error.message);

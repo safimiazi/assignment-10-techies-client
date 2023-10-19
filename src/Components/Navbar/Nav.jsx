@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 
-import React from "react";
+import React, { useContext } from "react";
 import {
   Navbar,
   MobileNav,
@@ -10,10 +10,12 @@ import {
 
 } from "@material-tailwind/react";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
-const Nav = ({handleDarkMode, darkMode}) => {
+const Nav = ({ handleDarkMode, darkMode }) => {
   const [openNav, setOpenNav] = React.useState(false);
-
+  const { user, logOut } = useContext(AuthContext)
+  console.log("hi gay", user);
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -21,36 +23,26 @@ const Nav = ({handleDarkMode, darkMode}) => {
     );
   }, []);
 
+
+  const handleLogOut = () => {
+    logOut()
+    .then(result => {
+      console.log(result.user)
+  })
+  .catch(error => {
+      console.log(error.message);
+  })
+  }
+
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <NavLink to='/'><li className="flex items-center">Home</li></NavLink>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <NavLink to='/addProduct'><li className="flex items-center">add Product</li></NavLink>
+
+      <NavLink to='/'><li className="flex items-center">Home</li></NavLink>
+      <NavLink to='/addProduct'><li className="flex items-center">add Product</li></NavLink>
+      <NavLink to='/myCart'><li className="flex items-center">My Cart</li></NavLink>
 
 
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-                <NavLink to='/myCart'><li className="flex items-center">My Cart</li></NavLink>
 
-      </Typography>
-  
     </ul>
   );
 
@@ -66,18 +58,42 @@ const Nav = ({handleDarkMode, darkMode}) => {
             <img src="https://i.ibb.co/TWDHqHS/asLogo.png" alt="" />
           </Typography>
           <div className="flex items-center gap-4">
-            <div className=" hidden lg:block">{navList}</div>
+            <div className=" hidden  lg:block">{navList}</div>
+            <div>
+              {
+                user && <p className="font-bold">{user.displayName}</p>
+              }
+            </div>
+            <div>
+              {
+                user &&  <img className="w-10 rounded-full border" src={user?.photoURL} alt="" />
+
+              }
+            </div>
             <div className="flex items-center gap-x-1">
-              <NavLink to='/login'><Button
-                variant="text"
-                size="sm"
-                className="hidden bg-gray-900 text-white btn hover:bg-gray-800 lg:inline-block"
-              >
-                <span>Log In</span>
-              </Button>
+              {
+                user ? <NavLink><Button
+                onClick={handleLogOut}
+                  variant="text"
+                  size="sm"
+                  className="hidden bg-gray-900 text-white btn hover:bg-gray-800 lg:inline-block"
+                >
+                  <span>LogOut</span>
+                </Button>
+
+                </NavLink> :
+
+                  <NavLink to='/login'><Button
+                    variant="text"
+                    size="sm"
+                    className="hidden bg-gray-900 text-white btn hover:bg-gray-800 lg:inline-block"
+                  >
+                    <span>Log In</span>
+                  </Button>
+
+                  </NavLink>
+              }
               <button className="md:ml-2 font-bold btn" onClick={handleDarkMode}>{`${darkMode ? "light" : "dark"}`}</button>
-              </NavLink>
-              
             </div>
             <IconButton
               variant="text"
@@ -118,15 +134,26 @@ const Nav = ({handleDarkMode, darkMode}) => {
             </IconButton>
           </div>
         </div>
-        <MobileNav open={openNav}>
+        <MobileNav  className="text-black" open={openNav}>
           {navList}
           <div className="flex items-center gap-x-1">
-          <NavLink to='/login'><Button
-                fullWidth variant="gradient" size="sm" className=""
-              >
-                <span>Log In</span>
-              </Button>
-              </NavLink>
+            {
+              user ?  
+              <NavLink><Button
+              onClick={handleLogOut}
+              fullWidth variant="gradient" size="sm" className=""
+            >
+              <span>LogOut</span>
+            </Button>
+            </NavLink> :
+            <NavLink><Button
+            fullWidth variant="gradient" size="sm" className=""
+          >
+            <span>LogIn</span>
+          </Button>
+          </NavLink>
+          
+            }
           </div>
         </MobileNav>
       </Navbar>
