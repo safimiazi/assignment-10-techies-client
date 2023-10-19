@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../Components/AuthProvider/AuthProvider";
 
 const Login = () => {
-    const {signInUser} = useContext(AuthContext)
+    const {signInUser, signInWithGoogle, signInWithGithub} = useContext(AuthContext)
     const handleLogin = e => {
         e.preventDefault()
         const email = e.target.email.value;
@@ -21,7 +21,18 @@ const Login = () => {
 
 
     const handleGoogleLogin = () => {
-        
+        signInWithGoogle()
+        .then(result => {
+            console.log(result.user)
+        })
+        .catch(error => {
+            console.log(error.message);
+        })
+    }
+
+
+    const handleGithubLogin = () => {
+       
     }
     return (
         <div className="hero min-h-screen">
@@ -66,7 +77,7 @@ const Login = () => {
                             />
                             <span className="text-gray-500">Login with Google</span>
                         </button>
-                        <button
+                        <button onClick={handleGithubLogin}
                             // onClick={() => HandleSocialLogin(GithubSignIn)}
                             className="px-4 bg-white py-2 border flex gap-2 border-slate-200 rounded-lg text-slate-700 hover:border-slate-400 hover:text-slate-900 hover:shadow transition duration-150"
                         >
