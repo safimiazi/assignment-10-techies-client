@@ -32,6 +32,7 @@ const Login = () => {
 
 
     const handleGithubLogin = () => {
+        signInWithGithub()
        
     }
     return (
