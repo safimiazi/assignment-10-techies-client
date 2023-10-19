@@ -3,7 +3,9 @@ import Swal from "sweetalert2";
 
 const CardDetails = () => {
     const data = useLoaderData()
-    const { name, brand, type, price, rating, photo, description } = data;     
+    
+    const { name, brand, type, price, rating, photo, description } = data;
+   
     const handleCart = () => {
         fetch('http://localhost:5000/myCart',{
             method: 'POST',

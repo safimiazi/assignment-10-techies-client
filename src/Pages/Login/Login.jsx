@@ -1,7 +1,23 @@
 /* eslint-disable react/no-unknown-property */
+import { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../../Components/AuthProvider/AuthProvider";
 
 const Login = () => {
+    const {signInUser} = useContext(AuthContext)
+    const handleLogin = e => {
+        e.preventDefault()
+        const email = e.target.email.value;
+        const password = e.target.password.value;
+        console.log(password, email)
+        signInUser(email, password)
+        .then(result => {
+            console.log(result.user)
+        })
+        .catch(error => {
+            console.log(error.message);
+        })
+    }
     return (
         <div className="hero min-h-screen">
             <div className="hero-content flex-col lg:flex-row-reverse">
@@ -9,18 +25,18 @@ const Login = () => {
                     <h1 className="text-5xl font-bold">Login now!</h1>
                 </div>
                 <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-gray-700">
-                    <form className="card-body ">
+                    <form onSubmit={handleLogin} className="card-body ">
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text text-white">Email</span>
                             </label>
-                            <input type="email" placeholder="email" className="input input-bordered" required />
+                            <input type="email"name="email" placeholder="email" className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text text-white">Password</span>
                             </label>
-                            <input type="password" placeholder="password" className="input input-bordered" required />
+                            <input type="password" name="password" placeholder="password" className="input input-bordered" required />
                             <label className="label">
                                 <a href="#" className="label-text-alt link link-hover text-white">Forgot password?</a>
                             </label>

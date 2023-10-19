@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 
 import React from "react";
 import {
@@ -10,7 +11,7 @@ import {
 } from "@material-tailwind/react";
 import { NavLink } from "react-router-dom";
 
-const Nav = () => {
+const Nav = ({handleDarkMode, darkMode}) => {
   const [openNav, setOpenNav] = React.useState(false);
 
   React.useEffect(() => {
@@ -74,6 +75,7 @@ const Nav = () => {
               >
                 <span>Log In</span>
               </Button>
+              <button className="md:ml-2 font-bold btn" onClick={handleDarkMode}>{`${darkMode ? "light" : "dark"}`}</button>
               </NavLink>
               
             </div>
