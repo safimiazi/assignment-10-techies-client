@@ -1,23 +1,35 @@
 /* eslint-disable react/no-unknown-property */
 import { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Components/AuthProvider/AuthProvider";
+import { toast } from "react-toastify";
 
 const Login = () => {
     const {signInUser, signInWithGoogle, signInWithGithub} = useContext(AuthContext)
+    const navigate = useNavigate()
     const handleLogin = e => {
-        e.preventDefault()
+        e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
-        console.log(password, email)
-        signInUser(email, password)
-        .then(result => {
-            console.log(result.user)
-        })
-        .catch(error => {
-            console.log(error.message);
-        })
-    }
+        if (email === "" || password === "") {
+          toast.info("Enter something or sign in with github or google");
+          toast.success("Login Successfully");
+        }
+        else{
+          signInUser(email, password)
+            .then((result) => {
+                console.log(result);
+              navigate("/");
+              toast.success("Login Successfully");
+            })
+            .catch((error) => {
+              toast.error(`${error}`);
+            });
+          }
+
+
+  }
+   
 
 
     const handleGoogleLogin = () => {

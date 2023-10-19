@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../Components/AuthProvider/AuthProvider";
+import { toast } from "react-toastify";
 
 const Register = () => {
     const {createUser} = useContext(AuthContext)
@@ -10,6 +11,21 @@ const Register = () => {
         const email = e.target.email.value;
         const password = e.target.password.value;
         console.log(name, password, email)
+        const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+
+        if (password.length < 6) {
+            toast.error("Password must be at least 6 characters long");
+            return;
+          } else if (!/[A-Z]/.test(password)) {
+            toast.error("Password must contain 1 capital letter ");
+            return;
+          }
+          else if (!specialChars.test(password)){
+            toast.error("Password must contain 1 spacial  character ");
+            return;
+          }
+
+
         createUser(email, password)
         .then(result => {
             console.log(result.user)
@@ -31,6 +47,12 @@ const Register = () => {
                                 <span className="label-text text-white">Name</span>
                             </label>
                             <input type="text" name="name" placeholder="name" className="input input-bordered" required />
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text text-white">Your photo</span>
+                            </label>
+                            <input type="text" name="photo" placeholder="your photo" className="input input-bordered" required />
                         </div>
                         <div className="form-control">
                             <label className="label">
