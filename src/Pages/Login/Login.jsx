@@ -33,7 +33,12 @@ const Login = () => {
 
     const handleGithubLogin = () => {
         signInWithGithub()
-       
+        .then(result => {
+            console.log(result.user)
+        })
+        .catch(error => {
+            console.log(error.message);
+        })
     }
     return (
         <div className="hero min-h-screen">
