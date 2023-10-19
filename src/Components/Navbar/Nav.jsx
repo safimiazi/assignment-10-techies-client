@@ -37,9 +37,12 @@ const Nav = ({ handleDarkMode, darkMode }) => {
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
 
-      <NavLink to='/'><li className="flex items-center">Home</li></NavLink>
-      <NavLink to='/addProduct'><li className="flex items-center">add Product</li></NavLink>
-      <NavLink to='/myCart'><li className="flex items-center">My Cart</li></NavLink>
+      <NavLink className={({isActive, isPending})=> isPending ? "" :  isActive ? "text-blue-600": ''} to='/'>
+        <li  className="flex items-center">Home</li></NavLink>
+
+      <NavLink className={({isActive, isPending})=> isPending ? "" :  isActive ? "text-blue-600": ''} to='/addProduct'><li className="flex items-center">add Product</li></NavLink>
+
+      <NavLink className={({isActive, isPending})=> isPending ? "" :  isActive ? "text-blue-600": ''} to='/myCart'><li className="flex items-center">My Cart</li></NavLink>
 
 
 
