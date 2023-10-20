@@ -55,7 +55,7 @@ const Nav = ({ handleDarkMode, darkMode }) => {
         <div className="flex items-center max-w-6xl mx-auto justify-between text-blue-gray-900">
           <Typography
             as="a"
-            href="#"
+            href="/"
             className=" cursor-pointer py-1.5 font-medium"
           >
             <img src="https://i.ibb.co/TWDHqHS/asLogo.png" alt="" />

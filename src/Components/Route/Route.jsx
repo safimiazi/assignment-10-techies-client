@@ -20,7 +20,7 @@ const router = createBrowserRouter([
         {
             path: '/',
             element:<Home></Home>,
-            loader: ()=> fetch('http://localhost:5000/brands')
+            loader: ()=> fetch('https://techies-server.vercel.app/brands')
         },
         {
            path: '/addProduct',
@@ -37,22 +37,22 @@ const router = createBrowserRouter([
         {
           path: '/updateProduct/:id',
           element: <PrivateRoute><UpdateProduct></UpdateProduct></PrivateRoute>,
-          loader: ({params})=> fetch(`http://localhost:5000/brandDetails/${params.id}`)
+          loader: ({params})=> fetch(`https://techies-server.vercel.app/brandDetails/${params.id}`)
         },
         {
           path: '/brandDetails/:brand',
           element: <BrandDetails></BrandDetails>,
-          loader: ()=> fetch('http://localhost:5000/brandDetails')
+          loader: ()=> fetch('https://techies-server.vercel.app/brandDetails')
         },
         {
           path: '/cardDetails/:id',
           element: <PrivateRoute><CardDetails></CardDetails></PrivateRoute>,
-          loader: ({params})=> fetch(`http://localhost:5000/brandDetails/${params.id}`)
+          loader: ({params})=> fetch(`https://techies-server.vercel.app/brandDetails/${params.id}`)
         },
         {
           path: '/myCart',
           element: <PrivateRoute><MyCart></MyCart></PrivateRoute>,
-          loader: ()=> fetch('http://localhost:5000/myCart')
+          loader: ()=> fetch('https://techies-server.vercel.app/myCart')
         }
       ]
     },

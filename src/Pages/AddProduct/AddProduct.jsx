@@ -15,7 +15,7 @@ const handleAddProduct = e => {
     console.log(brands);
 
     // //add brand for home page page brand card section
-    // fetch('http://localhost:5000/brands',{
+    // fetch('https://techies-server.vercel.app/brands',{
     //     method: 'POST',
     //     headers: {
     //         'content-type': 'application/json'
@@ -29,7 +29,7 @@ const handleAddProduct = e => {
 
 
     // for brandDetailsCollection 
-    fetch('http://localhost:5000/brandDetails',{
+    fetch('https://techies-server.vercel.app/brandDetails',{
         method: 'POST',
         headers: {
             'content-type': 'application/json'

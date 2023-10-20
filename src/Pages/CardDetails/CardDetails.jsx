@@ -5,9 +5,8 @@ const CardDetails = () => {
     const data = useLoaderData()
     
     const { name, brand, type, price, rating, photo, description } = data;
-   
     const handleCart = () => {
-        fetch('http://localhost:5000/myCart',{
+        fetch('https://techies-server.vercel.app/myCart',{
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -17,6 +16,7 @@ const CardDetails = () => {
         .then(res => res.json())
         .then(data => {
             console.log(data);
+          try {
             if(data.insertedId){
                 Swal.fire(
                     'Good job!',
@@ -24,7 +24,13 @@ const CardDetails = () => {
                     'success'
                   )
             }
+          } catch (error) {
+            return Swal.fire("Warning", "This item is already in your Cart So please restart the server and try to add another product", "warning");
+
+          }
         })
+        
+          
     }
     
     return (

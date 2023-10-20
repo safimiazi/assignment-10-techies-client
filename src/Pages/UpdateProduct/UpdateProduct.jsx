@@ -16,7 +16,7 @@ const UpdateProduct = () => {
     const brand = e.target.brand.value;
     console.log(name,brand, type, price, rating, photo);
     const product = {name,brand, type, price, rating, photo}
-        fetch(`http://localhost:5000/brandDetails/${_id}`,{
+        fetch(`https://techies-server.vercel.app/brandDetails/${_id}`,{
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
