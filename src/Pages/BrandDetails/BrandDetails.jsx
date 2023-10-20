@@ -6,7 +6,7 @@ const BrandDetails = () => {
     const { brand } = useParams();
     console.log(brand);
     const loadedData = useLoaderData();
-    const filtered = loadedData.filter(data => data?.brand == brand);
+    const filtered = loadedData?.filter(data => data?.brand == brand);
     console.log(filtered);
 
     return (
@@ -18,7 +18,7 @@ const BrandDetails = () => {
                <div>
                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     { 
-                      filtered?.length > 0 ?  filtered.map(data => <DetailsCard
+                      filtered?.length > 0 ?  filtered?.map(data => <DetailsCard
                             key={data._id}
                             data={data}
                         ></DetailsCard>) :

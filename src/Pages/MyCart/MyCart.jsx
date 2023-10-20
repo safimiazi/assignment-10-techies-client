@@ -29,7 +29,7 @@ const MyCart = () => {
                 Swal.fire("Deleted!", "Your file has been deleted.", "success");
       
             }
-            const remaining = tableData.filter(data => data._id !== _id)
+            const remaining = tableData?.filter(data => data._id !== _id)
             setTableData(remaining)
           });
        
@@ -53,7 +53,7 @@ const MyCart = () => {
                 <tbody>
                     {/* row 1 */}
                     {
-                        tableData.map(singleData => <tr key={singleData._id} className="bg-base-200">
+                        tableData?.map(singleData => <tr key={singleData._id} className="bg-base-200">
                             <th>{singleData._id}</th>
                             <td>{singleData.name}</td>
                             <td>{singleData.brand}</td>
